@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            div{
+                text-align: left;                
+                padding: 0.3em;
+            }
+            #grupos{
+                opacity: 0.8;
+                margin-top: 2em;
+                width: 9em;
+                text-align: left;
+                margin-bottom: 1em;                
+            }
+            #respuestas{
+                height: 5em;
+                text-align: left;
+                border: 1px solid #06ff42;
+                border-radius: 8px;
+                margin:0.3em;
+            }
+            #grupo{
+                text-align: left;
+                border: 1px solid #06ff42;
+                border-radius: 8px;
+                width: 80%;
+                padding: 0.3em;
+            }
+            body{
+                color: white;
+                background: url("img.jpg");
+                background-size: 400px 600px;
+                background-repeat: no-repeat;
+            }
+        </style>
+        <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAV88mIXZF9o0N9iuoH7QK7pBkkQS777x8",
+                authDomain: "flisol-ef3e6.firebaseapp.com",
+                databaseURL: "https://flisol-ef3e6.firebaseio.com",
+                projectId: "flisol-ef3e6",
+                storageBucket: "flisol-ef3e6.appspot.com",
+                messagingSenderId: "272732496465"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    <body>
+    <center>
+        <img style="float: left;margin-top: -2em;margin-right: -5em;" src="data:image/png;base64,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" width="90" height="40">
+        <select onchange="sltGrupo()" id="grupos" class="form-control btn-primary" >
+                <option>Elegir grupo</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <div id="grupo">
+                Grupo:<h7 id="grp">NumeroGrup</h7><br>
+                Estacion:<h7 id="esta">NumeroEstacion</h7><br>
+                <button class="btn btn-primary" id="btnactivarPis" onclick="activarPista()" disabled="">Activar Pista</button>
+                <button class="btn btn-primary" id="btnactivarPre" onclick="activarPre()" disabled="">Activar Pregunta</button><br>
+                Respueta:
+                <div id="respuestas">
+                </div>
+                <button class="btn btn-primary" id="btncompletado"  onclick="completado()"disabled="">Completado</button>
+                <br>
+            </div>
+        <button style="margin-top: 2em;" id="btnReinicio" onclick="reinicio()">Btn Reinicio prueba</button>
+        <div style=" border-radius: 8px; text-align: center; margin-top: 0.5em;height:5em;   color: #06ff42; border: 1px solid greenyellow">
+            <h1>Publicidad</h1>
+        </div>
+        <div style=" border-radius: 8px; text-align: center; margin-top: 0.5em;height:5em;   color: #06ff42; border: 1px solid greenyellow">
+            <h1>Auspiciantes</h1>
+        </div>
+    </center>    
+    <script type="text/javascript">
+    function sltGrupo() {        
+        var opcion= document.getElementById("grupos").value;
+        var db = firebase.database().ref().child("grup"+opcion);
+        document.querySelector("select").setAttribute("disabled", "");
+        document.getElementById("grp").innerHTML=opcion;
+
+        db.on('value', function (snapshot) {
+            document.getElementById("esta").innerHTML=snapshot.child("/estacion/").val();
+        });
+
+        document.getElementById("btnactivarPis").disabled=false;
+        document.getElementById("btnactivarPre").disabled=true;
+    }
+    function activarPista() {
+        var opcion= document.getElementById("grupos").value;
+        var db = firebase.database().ref().child("grup"+opcion);
+        db.once('value', function (snapshot) {            
+            if (parseInt(snapshot.child("/estacion/").val())>10) {
+                document.getElementById("btnactivarPre").disabled=true;
+                document.getElementById("btnactivarPis").disabled=false;
+                document.getElementById("btncompletado").disabled=true;
+                return ;
+            }else{
+                document.getElementById("btnactivarPre").disabled=false;
+                document.getElementById("btnactivarPis").disabled=true;
+                var db2 = firebase.database().ref().child("/grup"+opcion+"/activar/");
+                db2.update({
+                pis: 1
+                });
+                db2.update({
+                ppre: 0
+                });               
+            }                 
+            db.update({
+                estacion: parseInt(snapshot.child("/estacion/").val())+1
+                });
+            db.update({
+                panel: 0
+                });     
+            });      
+    }
+    function activarPre() {
+        var opcion= document.getElementById("grupos").value;
+        var db = firebase.database().ref().child("grup"+opcion);
+        db.once('value', function (snapshot) {            
+            if (parseInt(snapshot.child("/estacion/").val())>10) {                
+                document.getElementById("btnactivarPre").disabled=true;
+                document.getElementById("btnactivarPis").disabled=true;
+                document.getElementById("btncompletado").disabled=true;
+                document.getElementById("respuestas").innerHTML=snapshot.child("/respuestas/pre"+snapshot.child("/estacion/").val()+"/").val();
+                return ;
+            }else{
+                document.getElementById("btnactivarPre").disabled=true; 
+                document.getElementById("btncompletado").disabled=false;
+                var db2 = firebase.database().ref().child("/grup"+opcion+"/activar/");
+                db2.update({
+                pre: 1
+                });      
+                db2.update({
+                pis: 0
+                });          
+            }                
+            });
+            db.on('value', function (snapshot) {
+                document.getElementById("respuestas").innerHTML=snapshot.child("/respuestas/pre"+snapshot.child("/estacion/").val()+"/").val();
+            });        
+    }
+    function completado() {        
+        var opcion= document.getElementById("grupos").value;
+        var db = firebase.database().ref().child("grup"+opcion);
+        db.once('value', function (snapshot) {            
+            if (parseInt(snapshot.child("/estacion/").val())>=10) {
+                document.getElementById("btnactivar").disabled=true;
+                document.getElementById("btncompletado").disabled=true;               
+            }
+            else {
+                document.getElementById("btnactivarPis").disabled=false;
+                document.getElementById("btncompletado").disabled=true;
+                var db2 = firebase.database().ref().child("/grup"+opcion+"/activar/pre/");
+                db2.update({
+                estacion: 0
+                }); 
+                var db3 = firebase.database().ref().child("/grup"+opcion+"/activar/pis/");
+                db2.update({
+                estacion: 0
+                });
+                db.update({
+                panel: 1
+                });      
+            }
+            document.getElementById("respuestas").innerHTML="...";
+        });    
+    }
+    function reinicio() {
+        var opcion= document.getElementById("grupos").value;
+        var db = firebase.database().ref().child("grup"+opcion);
+        if (document.getElementById("grp").innerHTML === "NumeroGrup") {
+            alert("Pero selecciona un grupo hombre");
+        }
+        else{
+            alert("Eso");
+            db.update({
+                estacion: 0
+            });  
+        }              
+    }
+    
+    </script>
+</body>
+</html>

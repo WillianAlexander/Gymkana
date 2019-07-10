@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAV88mIXZF9o0N9iuoH7QK7pBkkQS777x8",
+                authDomain: "flisol-ef3e6.firebaseapp.com",
+                databaseURL: "https://flisol-ef3e6.firebaseio.com",
+                projectId: "flisol-ef3e6",
+                storageBucket: "flisol-ef3e6.appspot.com",
+                messagingSenderId: "272732496465"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <script src="aframe_0_9_0.min.js"></script>
+        <script src="datos.js"></script>
+        <link href="bootstrap.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header>
+
+            <div class="jumbotron">
+                <h1>Control de estaciones</h1>
+                <p>Plataforma de control y seguimiento de las estaciones de Gymcana Digital</p>
+                <button class="btn-lg btn-success"> Saber mas ...</button>
+                            <div class="chronometer">
+        <div id="screen">00 : 00 : 00 : 00</div>
+        <div class="buttons">
+            <button class="emerald" onclick="start()">START &#9658;</button>
+            <button class="emerald" onclick="stop()">STOP &#8718;</button>
+            <button class="emerald" onclick="resume()" >RESUME &#8634;</button>
+            <button class="emerald" onclick="reset()">RESET &#8635;</button>
+        </div>
+    </div>
+            </div>        
+        </header><center>
+        <section class="container">
+            
+            <div >
+                <span>Grupo 1 :</span><button class="btn btn-primary" id="1-1" onclick="visualizar(id, '1-2', 'grup1', '-10 0.5 -4', '-8.6 0.5 -4', '4')">Estacion1</button>        
+                <button class="btn btn-primary" id="1-2" onclick="visualizar(id, '1-3', 'grup1', '-7.8 0.5 -4', '-4.2 0.5 -4', '8.5')" disabled>Estacion2</button>
+                <button class="btn btn-primary" id="1-3" onclick="visualizar(id, '1-4', 'grup1', '-5.2 0.5 -4', '1.2 0.5 -4', '13.5')" disabled>Estacion3</button>
+                <button class="btn btn-primary" id="1-4" onclick="visualizar(id, '1-5', 'grup1', '-2.5 0.5 -4', '6.3 0.5 -4', '19')" disabled>Estacion4</button>
+                <button class="btn btn-primary" id="1-5" onclick="visualizar(id, '0', 'grup1', '0 0.5 -4', '11.4 0.5 -4', '24')" disabled>Finalizar</button></div><br>
+            <div>     
+                <span>Grupo 2 :</span><button class="btn btn-primary" id="2-1" onclick="visualizar(id, '2-2', 'grup2', '-10 0.5 -2', '-8.6 0.5 -2', '4')">Estacion1</button>        
+                <button class="btn btn-primary" id="2-2" onclick="visualizar(id, '2-3', 'grup2', '-7.8 0.5 -2', '-4.2 0.5 -2', '8.5')" disabled>Estacion2</button>
+                <button class="btn btn-primary" id="2-3" onclick="visualizar(id, '2-4', 'grup2', '-5.2 0.5 -2', '1.2 0.5 -2', '13.5')" disabled>Estacion3</button>
+                <button class="btn btn-primary" id="2-4" onclick="visualizar(id, '2-5', 'grup2', '-2.5 0.5 -2', '6.3 0.5 -2', '19')" disabled>Estacion4</button>
+                <button class="btn btn-primary" id="2-5" onclick="visualizar(id, '', 'grup2', '0 0.5 -2', '11.4 0.5 -2', '24')" disabled>Finalizar</button></div><br>  
+            <div>    
+                <span>Grupo 3 :</span><button class="btn btn-primary" id="3-1" onclick="visualizar(id, '3-2', 'grup3', '-10 0.5 0', '-8.6 0.5 0', '4')">Estacion1</button>        
+                <button class="btn btn-primary" id="3-2" onclick="visualizar(id, '3-3', 'grup3', '-7.8 0.5 0', '-4.2 0.5 0', '8.5')" disabled>Estacion2</button>
+                <button class="btn btn-primary" id="3-3" onclick="visualizar(id, '3-4', 'grup3', '-5.2 0.5 0', '1.2 0.5 0', '13.5')" disabled>Estacion3</button>
+                <button class="btn btn-primary" id="3-4" onclick="visualizar(id, '3-5', 'grup3', '-2.5 0.5 0', '6.3 0.5 0', '19')" disabled>Estacion4</button>
+                <button class="btn btn-primary" id="3-5" onclick="visualizar(id, '', 'grup3', '0 0.5 0', '11.4 0.5 0', '24')" disabled>Finalizar</button></div><br>
+            <div>             
+                <span>Grupo 4 :</span><button class="btn btn-primary" id="4-1" onclick="visualizar(id, '4-2', 'grup4', '-10 0.5 2', '-8.6 0.5 2', '4')">Estacion1</button>        
+                <button class="btn btn-primary" id="4-2" onclick="visualizar(id, '4-3', 'grup4', '-7.8 0.5 2', '-4.2 0.5 2', '8.5')" disabled>Estacion2</button>
+                <button class="btn btn-primary" id="4-3" onclick="visualizar(id, '4-4', 'grup4', '-5.2 0.5 2', '1.2 0.5 2', '13.5')" disabled>Estacion3</button>
+                <button class="btn btn-primary" id="4-4" onclick="visualizar(id, '4-5', 'grup4', '-2.5 0.5 2', '6.3 0.5 2', '19')" disabled>Estacion4</button>
+                <button class="btn btn-primary" id="4-5" onclick="visualizar(id, '', 'grup4', '0 0.5 2', '11.4 0.5 2', '24')" disabled>Finalizar</button></div><br>
+            <hr>
+            <center>
+                <form class="form" action="control.html">
+                    <button class="btn btn-danger" onclick="reiniciar('-12.5 0.5 -4', '-12.5 0.5 -2', '-12.5 0.5 0', '-12.5 0.5 2', '1.2')">Reinicar</button>
+                </form>
+            </center>
+            <hr>
+            <footer>Escuela de informáticas y Multimedia Todos los derechos reservados. 2019</footer>
+        </section>
+    </center>
+</body>
+</html>

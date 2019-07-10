@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            form{
+                margin-top: 15%;
+                width: 60%;
+                border: 1px solid grey;
+                padding: 0.3em;
+                border-radius: 10px;
+            }
+        </style>
+        <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAV88mIXZF9o0N9iuoH7QK7pBkkQS777x8",
+                authDomain: "flisol-ef3e6.firebaseapp.com",
+                databaseURL: "https://flisol-ef3e6.firebaseio.com",
+                projectId: "flisol-ef3e6",
+                storageBucket: "flisol-ef3e6.appspot.com",
+                messagingSenderId: "272732496465"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    <body>
+    <center>
+        <form action="GrupoInterfaz.html" method="get">
+            <div class="form-group">
+                Login:<input class="form-control" type="text" id="login" name="login" placeholder="Ingrese su usuario"><br>
+                Password<input class="form-control"  type="password" id="pass" name="pass" placeholder="Ingrese su contraseña"><br>
+                <input class="btn btn-dark" onclick="validar()" id="inp" value="Entrar">            
+            </div>
+        </form>
+        <script type="text/javascript">
+            function validar() {
+                var db = firebase.database().ref().child("grupos");            
+                db.on('value', function (snapshot) {
+                    for (var i = 1; i < 11; i++) {
+                        if (document.getElementById("login").value == snapshot.child("/grupo"+i+"/usuario/").val()) {
+                            if (document.getElementById("pass").value == snapshot.child("/grupo"+i+"/contraseña/").val()) {
+                                location.href ="GrupoInterfaz.html";
+                                return ;
+                            }                            
+                        }
+                    }
+                    alert("Usuario o contraseña Incorrecto");
+                });
+            }
+        </script>
+    </center>
+</body>
+</html>
